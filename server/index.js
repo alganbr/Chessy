@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require("body-parser");
