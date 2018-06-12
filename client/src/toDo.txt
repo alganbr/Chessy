@@ -1,0 +1,15 @@
+toDo
+- verify that log structure is the same with the tic tac toe project
+- implement castling
+- implement en passant
+* implement undo,
+  currently have bug when updating captured pieces, i think problem is when many of the same type of pieces are captured it is reduced to just 1 piece in the capturedPieces component.
+
+
+
+bugs:
+- the covers are not updated in a timely manner
+  - inconsistent results when the path for castling is blocked (i.e. there is some enemy piece intercepting) 
+
+
+* - currently in progress
