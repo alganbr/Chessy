@@ -20,8 +20,8 @@ class Game extends React.Component{
     super(props);
 
     //set the player color
-    const player = "white";
-    const opponent = "black";
+    const player = props.player;
+    const opponent = (player === 'white') ? 'black' : 'white';
     //construct the initial board configuration
     let initial = [];
     //boolean to create alternating tile colors

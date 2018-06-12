@@ -2,6 +2,7 @@ import React from 'react';
 import {initiateGame} from './socketer'
 import InputForm from './inputForm'
 import Game from './Game/Game'
+import Waiting from './waitingScreen'
 
 /*
   The Lobby component is essentially a branch, it either renders the:
@@ -26,6 +27,8 @@ class Lobby extends React.Component{
     this.handleNameInput = this.handleNameInput.bind(this)
     this.handleRoomInput = this.handleRoomInput.bind(this)
     this.handleJoinButton = this.handleJoinButton.bind(this)
+
+
   }
 
   handleNameInput(event){
@@ -36,10 +39,23 @@ class Lobby extends React.Component{
     this.setState({roomName: event.target.value})
   }
 
+  setGameFlags(wait, start,color){
+    this.setState({
+      startGame: start, 
+      waitForGame: wait,
+      playerColor: color,
+    })
+  }
+
   handleJoinButton(event){
+    console.log('calling join')
     const username = this.state.username
     const roomName = this.state.roomName
-    initiateGame(username, roomName, (wait, start) => this.setState({startGame: start, waitForGame: wait}))
+    initiateGame(username, roomName, (wait, start, color) => this.setState({
+      startGame: start, 
+      waitForGame: wait,
+      playerColor: color,
+    }))
 
   }
 
@@ -50,7 +66,10 @@ class Lobby extends React.Component{
     if(this.state.startGame)
     {
       display = (<Game />)
+    }else if(this.state.waitForGame){
+      display = (<Waiting />)
     }
+
     return(
       <div>
         {display}
