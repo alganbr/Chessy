@@ -17,6 +17,7 @@ let setter //wait, start, color
 socket.on('connect', () => {
   console.log('socket connection established')
 })
+
 socket.on('waitForOpponent', () => {
   console.log('waiting for opponent') 
   setter(true, false)

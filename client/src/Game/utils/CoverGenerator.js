@@ -325,6 +325,8 @@ class CoverGenerator
 
     return kingCover;
   }
+
+  
 }
 
 export default CoverGenerator;

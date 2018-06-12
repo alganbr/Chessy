@@ -12,6 +12,7 @@ import CheckDisplay from './amenities/CheckDisplay';
 import TestDisplay from './amenities/TestDisplay';
 import CoverGenerator from './utils/CoverGenerator';
 import io from 'socket.io-client'
+import {searchArray} from './utils/utils'
 
 const socket = io();
 
@@ -154,13 +155,14 @@ class Game extends React.Component{
 
     let coverGen = new CoverGenerator(player);
 
+    const playerIsNext = (player === 'white') ? true : false
 
     this.state = {
       history:[
       {tiles: initial}
       ],
       stepNumber: 0,
-      playerIsNext: true,
+      playerIsNext,
       player: player,
       opponent: opponent,
       rank: 8,
@@ -190,22 +192,8 @@ class Game extends React.Component{
     
   }
 
-  //this method searches array for value and returns true if value is found in array
-  searchArray(array, value)
-  {
-    const temp = [...array];
-    let result = temp.find((coord) => JSON.stringify(coord) === JSON.stringify(value));
-    if(typeof(result) === "undefined")
-    {
-      //the value was not found
-      return false;
-    }else
-    {
-      return true;
-    }
-  }
-
-  //this method generates the cover for a piece given its row , col, color and ID based on given board configuration (tiles)
+  // //this method generates the cover for a piece given its row , col, color and ID based on given board configuration (tiles)
+  //it would be ideal to move this to CoverGenerator.js
   generateCoverByID(row, col, color, tiles, ID)
   {
     let cover;
@@ -263,7 +251,6 @@ class Game extends React.Component{
     return returnArray;
   }
 
-  
   getMergeCover(color)
   {
     let initialCover;
@@ -335,7 +322,7 @@ class Game extends React.Component{
         clearPath0 = false;
         break;
       }
-      if(this.searchArray(oppCover,rook0Path[i]))
+      if(searchArray(oppCover,rook0Path[i]))
       {
         clearPath0 = false;
         break;
@@ -349,15 +336,13 @@ class Game extends React.Component{
         clearPath1 = false;
         break;
       }
-      if(this.searchArray(oppCover,rook1Path[j]))
+      if(searchArray(oppCover,rook1Path[j]))
       {
         clearPath1 = false;
         break;
       }
     }
 
-    //first handle the rook0 castling
-    
     if(!checked && !kingMoved)
     {
       //add to the return array
@@ -461,7 +446,7 @@ class Game extends React.Component{
         }
       }
       
-      if(!this.searchArray(result, kingCoord))
+      if(!searchArray(result, kingCoord))
       {
         returnArray = [...returnArray, currentMove];
       }else
@@ -517,6 +502,8 @@ class Game extends React.Component{
     return pieceSetCover;
   }
 
+
+  //function that tests for a check situation
   testCheck(color, pcover)
   {
     let kingLocation;
@@ -531,7 +518,7 @@ class Game extends React.Component{
     const myIDs = this.state.myIDs;
     for(let i = 0; i < myIDs.length; i++)
     {
-      if(this.searchArray(pcover[myIDs[i]], kingLocation))
+      if(searchArray(pcover[myIDs[i]], kingLocation))
       {
         return true;
       }
@@ -539,6 +526,7 @@ class Game extends React.Component{
     return false;
   }
 
+  //function that tests for a checkmate situation
   testCheckMate(color, pcover){
     let cover = {...pcover};
     let numMoves = 0;
@@ -652,7 +640,7 @@ class Game extends React.Component{
       */
       const current = this.state.current;
       const cover = this.state.highlightedTiles;
-      if(!this.searchArray(cover,[row,col]))
+      if(!searchArray(cover,[row,col]))
       {
         //if [row,col] is not in cover, then the selected tile is invalid
         //reset the tile highlighting
@@ -875,20 +863,6 @@ class Game extends React.Component{
     }
   }
 
-  testFunction = () => {
-    return [1,2,3];
-  }
-
-  testHandler = () =>
-  {
-    let test = [[1,2],[3,4]];
-    if(this.searchArray(test,[1,2]))
-    {
-      console.log("the value was found");
-    }
-    
-    
-  }
   /*
     test notes:
     - we can return arrays from functions
@@ -1048,19 +1022,6 @@ class Game extends React.Component{
 
     }
 
-    
-
-    // const moves = history.map((step, move) => {
-    //   const desc = move ?
-    //     'Go to move #' + move :
-    //     'Go to game start';
-    //   return (
-    //     <li key={move}>
-    //       <button onClick={() => this.jumpTo(move)}>{desc}</button>
-    //     </li>
-    //   );
-    // });
-
     return(
       <div className="game">
         {checkMate}
@@ -1081,9 +1042,3 @@ class Game extends React.Component{
 }
 
 export default Game;
-
-//put the following line within the render methods return statement to add TestDisplay
-//<TestDisplay piece={currentPiece} player={currentPlayer} cover={cover} playerPieces={this.state.playerPieces} opponentPieces={this.state.opponentPieces}/>
-
-//if we need a test button
-//<button onClick={this.testHandler}>Test Button</button>

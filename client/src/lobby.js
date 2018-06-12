@@ -65,7 +65,7 @@ class Lobby extends React.Component{
     )
     if(this.state.startGame)
     {
-      display = (<Game />)
+      display = (<Game player={this.state.playerColor}/>)
     }else if(this.state.waitForGame){
       display = (<Waiting />)
     }
