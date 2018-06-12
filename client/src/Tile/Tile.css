@@ -1,0 +1,25 @@
+.black{
+  background-color: #575a5e;
+}
+
+.white{
+  background-color: #ffffff;
+}
+
+.highlight{
+  background-color: #ebf442;
+}
+
+.square {
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 60px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 60px;
+}
