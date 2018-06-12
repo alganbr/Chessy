@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
 
     //determine the number of participants in the room
     const numPar = users.getUserList(params.roomName)
-    if(numPar.length <== 1)
+    if(numPar.length <= 1)
     {
       socket.join(params.room); 
       users.removeUser(socket.id);
