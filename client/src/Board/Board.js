@@ -1,3 +1,9 @@
+/*
+  The purpose of this component is to simply render the board based on the configuration
+  of the tiles props (which is inherited from Game.js)
+  Might want to convert this component to a functional one due to the lack of logic and states
+*/
+
 import React from 'react';
 import Tile from '../Tile/Tile';
 import './Board.css';
@@ -6,7 +12,8 @@ class Board extends React.Component{
   /*
     this function renders a tile object:
     1. myColor is retrieved from our props.tiles in the color property
-    2. myValue is retrieved from our props.tiles which is passed from Game component. The purpose is to render our piece image if a piece is in the current tile
+    2. myValue is retrieved from our props.tiles which is passed from Game component. 
+       The purpose is to render our piece image if a piece is in the current tile
   */
   renderSquare(row, col){
     const myColor = this.props.tiles[row][col].color;
@@ -16,6 +23,7 @@ class Board extends React.Component{
       );
   }
 
+  //the below block maps the renderSquare function to each tile in the tiles props from Game.js
   render(){
     let m_board = (
       <div>

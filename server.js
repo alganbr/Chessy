@@ -27,26 +27,39 @@ let users = new Users()
 //socket io behavior for each connected socket
 io.on('connection', (socket) => {
   console.log('successfuly connected to a client')
+  
+  /*
+    handles join event from client
+    occurs when client sublimts the room form
+  */
   socket.on('join', (params, callback) => {
     if (!isRealString(params.username) || !isRealString(params.roomName)) {
       return callback('Name and room name are required.');
     }
 
     //determine the number of participants in the room
-    const numPar = users.getUserList(params.roomName)
-    if(numPar.length <= 1)
+    const roomParticipants = users.getUserList(params.roomName)
+    if(roomParticipants.length <= 1)
     {
+      //add the user to the room
       socket.join(params.room); 
       users.removeUser(socket.id);
-      users.addUser(socket.id, params.name, params.room); 
-      callback()
+      users.addUser(socket.id, params.username, params.roomName); 
     }else{
       return callback('The specified room has an ongoing game')
     }
 
     //At this point the room that corresponds to this user is ready to start a game
-    //socket.emit('startGame', {})
-    
+    const updatedRoomParticipants = users.getUserList(params.roomName)
+    if(updatedRoomParticipants.length === 1)
+    {
+      socket.emit('waitForOpponent')
+    }else if(updatedRoomParticipants.length === 2){
+      const white = updatedRoomParticipants[0]
+      const black = updatedRoomParticipants[1]
+      io.to(params.roomName).emit('startGame', {white, black})
+    }
+    callback()
   })
 
 })
@@ -60,7 +73,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+  res.send({ express: 'Server welcomes you' });
 });
 
 // Connect routes

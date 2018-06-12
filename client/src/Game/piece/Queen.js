@@ -1,14 +1,14 @@
 /*
-  Rook component
-  - represents a rook piece
+  Queen component
+  - represents a queen piece
   - the only logic here is to select the color of the piece
 */
 
 import React from 'react';
-import BlackRook from '../images/temp/black_rook.png';
-import WhiteRook from '../images/temp/white_rook.png';
+import BlackQueen from '../../images/temp/black_queen.png';
+import WhiteQueen from '../../images/temp/white_queen.png';
 
-class Rook extends React.Component
+class Queen extends React.Component
 {
   constructor(props){
     super(props);
@@ -23,13 +23,13 @@ class Rook extends React.Component
     let image;
     if(color === "white")
     {
-      image = (<img src={WhiteRook} alt="a rook"/>);
+      image = (<img src={WhiteQueen} alt="a queen"/>);
     }else
     {
-      image = (<img src={BlackRook} alt="a rook"/>);
+      image = (<img src={BlackQueen} alt="a queen"/>);
     }
     return image;
   }
 }
 
-export default Rook;
+export default Queen;

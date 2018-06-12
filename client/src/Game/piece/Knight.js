@@ -5,8 +5,8 @@
 */
 
 import React from 'react';
-import BlackKnight from '../images/temp/black_knight.png';
-import WhiteKnight from '../images/temp/white_knight.png';
+import BlackKnight from '../../images/temp/black_knight.png';
+import WhiteKnight from '../../images/temp/white_knight.png';
 
 class Knight extends React.Component
 {

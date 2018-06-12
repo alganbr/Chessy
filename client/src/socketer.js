@@ -25,12 +25,18 @@ const initiateGame = (username, roomName, setGameFlag) => {
     if(err)
     {
       //if error was found we don't change the flag
-      setGameFlag(false)
-    }else{
-      //if no error was found we change the flag and display the game
-      setGameFlag(true)
+      setGameFlag(false, false)
     }
   })
+  socket.on('waitForOpponent', () => {
+    setGameFlag(true, false)
+  })
+  socket.on('startGame', (params) => {
+    if(params.white === username)
+    setGameFlag(false, true)
+  })
 }
+
+
 
 export {initiateGame}

@@ -5,8 +5,8 @@
 */
 
 import React from 'react';
-import BlackBishop from '../images/temp/black_bishop.png';
-import WhiteBishop from '../images/temp/white_bishop.png';
+import BlackBishop from '../../images/temp/black_bishop.png';
+import WhiteBishop from '../../images/temp/white_bishop.png';
 
 class Bishop extends React.Component
 {

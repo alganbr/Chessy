@@ -14,7 +14,9 @@ class Lobby extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      waitForGame: false,
       startGame: false,
+      playerColor: '',
       username: '',
       roomName: '',
       validUserName: false,
@@ -37,7 +39,7 @@ class Lobby extends React.Component{
   handleJoinButton(event){
     const username = this.state.username
     const roomName = this.state.roomName
-    initiateGame(username, roomName, (val) => this.setState({startGame: val}))
+    initiateGame(username, roomName, (wait, start) => this.setState({startGame: start, waitForGame: wait}))
 
   }
 

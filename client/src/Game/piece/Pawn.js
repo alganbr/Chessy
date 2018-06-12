@@ -5,8 +5,8 @@
 */
 
 import React from 'react';
-import WhitePawn from '../images/temp/white_pawn.png';
-import BlackPawn from '../images/temp/black_pawn.png';
+import WhitePawn from '../../images/temp/white_pawn.png';
+import BlackPawn from '../../images/temp/black_pawn.png';
 
 //need to implement double steps
 class Pawn extends React.Component

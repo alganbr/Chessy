@@ -1,0 +1,5 @@
+To do:
+- refactor chess code
+- currently working on implementing setting game flags: startGame, waitForGame
+- put global variable user and room in socketer so that event handlers can access the info
+	- move handlers outside of initiateGame function
